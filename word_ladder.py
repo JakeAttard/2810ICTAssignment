@@ -1,12 +1,17 @@
+# Regular Expressions
 import re
+
+# Same function
 def same(item, target):
   return len([c for (c, t) in zip(item, target) if c == t])
 
+#Build Function
 def build(pattern, words, seen, list):
   return [word for word in words
                  if re.search(pattern, word) and word not in seen.keys() and
                     word not in list]
 
+#Finding word function
 def find(word, words, seen, target, path):
   list = []
   for i in range(len(word)):
@@ -26,16 +31,42 @@ def find(word, words, seen, target, path):
       return True
     path.pop()
 
-fname = input("Enter dictionary name: ")
+#Inputting File Name
+fname = input("Enter dictionary file: ")
 file = open(fname)
 lines = file.readlines()
+
+#Checking if the file name entered is valid. 
+# If not the program will tell the user the file entered can't be opened and will quit the program.
+
+
+###### TRYING TO IMPLEMENT THE FILENAME WITH INPUT ERROR VALIDATING ###########
+
+# fname = input("Enter dictionary file: ")
+
+# while True:
+#   if fname == True:
+#       continue
+#   elif len(fname) <= 0:
+#     print("Please enter a valid filename")
+#     quit()
+#   else:
+#       print("Filename is invalid")
+#       exit()
+
+
+# file = open(fname)
+# lines = file.readlines()
+
 while True:
+  # Inputting the start word in the dictionary
   start = input("Enter start word:")
   words = []
   for line in lines:
     word = line.rstrip()
     if len(word) == len(start):
       words.append(word)
+  # Inputting the end target word
   target = input("Enter target word:")
   break
 
@@ -47,4 +78,3 @@ if find(start, words, seen, target, path):
   print(len(path) - 1, path)
 else:
   print("No path found")
-
