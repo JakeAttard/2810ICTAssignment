@@ -36,28 +36,6 @@ fname = input("Enter dictionary file: ")
 file = open(fname)
 lines = file.readlines()
 
-#Checking if the file name entered is valid. 
-# If not the program will tell the user the file entered can't be opened and will quit the program.
-
-
-###### TRYING TO IMPLEMENT THE FILENAME WITH INPUT ERROR VALIDATING ###########
-
-# fname = input("Enter dictionary file: ")
-
-# while True:
-#   if fname == True:
-#       continue
-#   elif len(fname) <= 0:
-#     print("Please enter a valid filename")
-#     quit()
-#   else:
-#       print("Filename is invalid")
-#       exit()
-
-
-# file = open(fname)
-# lines = file.readlines()
-
 while True:
   # Inputting the start word in the dictionary
   start = input("Enter start word:")
