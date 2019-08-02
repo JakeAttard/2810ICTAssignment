@@ -60,3 +60,18 @@ def find(word, words, seen, target, path):
       return True
     path.pop()
 
+dicionaryList = dictionaryListFile()
+startWord = {}
+
+# Excluding words
+while True:
+  excludeWords = input("Do you want to exclude any words? Please type Y to continue and N to skip. ").lower()
+  if excludeWords != "y" and excludeWords != "n":
+    print("Please type 'Y' or 'N' ")
+    continue
+  if excludeWords == "y":
+    excludeWords = dictionaryListFile()
+    for word in excludeWords:
+      startWord[word] = True
+  break
+
