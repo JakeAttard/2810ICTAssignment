@@ -1,15 +1,44 @@
 # Regular Expressions
 import re
 
+def checkUserInput(userInput = "", checkInput = True):
+  inputText = None
+  while True:
+    inputText = input(userInput)
+    if len(inputText) == 0:
+      print("The input cannot be empty.")
+      continue
+    elif not inputText.isalpha() and checkInput:
+      print("Error")
+      continue
+    break
+  return inputText
+
+def dictionaryListFile():
+  try:
+    file = open(checkUserInput("Enter dictionary file: ", checkInput = False))
+  except:
+    print("The dictionary file provided does not exist.")
+    exit(0) ### Test with no 0
+  
+  fileLines = file.readlines()
+  for fileLine in range(len(fileLines)):
+    fileLines[fileLine] = fileLines[fileLine].strip()
+    if fileLines[fileLine] == "":
+      fileLines.pop(fileLine)
+  if len(fileLines) == 0:
+    print("The file is empty.")
+    exit(0)
+  return fileLines
+
 # Same function
 def same(item, target):
   return len([c for (c, t) in zip(item, target) if c == t])
 
 #Build Function
 def build(pattern, words, seen, list):
-  return [word for word in words
-                 if re.search(pattern, word) and word not in seen.keys() and
-                    word not in list]
+  return [word for word in words 
+    if re.search(pattern, word) and word not in seen.keys() and word not in list]
 
 #Finding word function
 def find(word, words, seen, target, path):
@@ -31,28 +60,17 @@ def find(word, words, seen, target, path):
       return True
     path.pop()
 
-#Inputting File Name
-fname = input("Enter dictionary file: ")
-file = open(fname)
-lines = file.readlines()
+dicionaryList = dictionaryListFile()
+startWord = {}
 
+# Excluding words
 while True:
-  # Inputting the start word in the dictionary
-  start = input("Enter start word:")
-  words = []
-  for line in lines:
-    word = line.rstrip()
-    if len(word) == len(start):
-      words.append(word)
-  # Inputting the end target word
-  target = input("Enter target word:")
+  excludeWords = input("Do you want to exclude any words? Please type Y to continue and N to skip. ").lower()
+  if excludeWords != "y" and excludeWords != "n":
+    print("Please type 'Y' or 'N' ")
+    continue
+  if excludeWords == "y":
+    excludeWords = dictionaryListFile()
+    for word in excludeWords:
+      startWord[word] = True
   break
-
-count = 0
-path = [start]
-seen = {start : True}
-if find(start, words, seen, target, path):
-  path.append(target)
-  print(len(path) - 1, path)
-else:
-  print("No path found")
