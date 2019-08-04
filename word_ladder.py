@@ -74,3 +74,26 @@ while True:
     for word in excludeWords:
       startWord[word] = True
   break
+
+#Start word
+while True:
+  start = checkUserInput("Enter start word: ").lower()
+  if start not in dicionaryList:
+    print("The dictionary word inputed can't be found")
+    continue
+  break
+startWord[start] = True
+
+#Target Word
+while True:
+  target = checkUserInput("Enter target word: ").lower()
+  if start == target:
+    print("The target word can not be the same as the start word!")
+    continue
+  elif len(target) != len(start):
+    print("The target and start word must be the same length")
+    continue
+  elif target not in dicionaryList:
+    print("The dictionary word inputed can't be found")
+    continue
+  break
