@@ -1,6 +1,11 @@
-# Regular Expressions
+#word_ladder created by:
+#Jake Attard s5138647
+#Steven Phan s5080436
+
+# Importing Regular Expressions
 import re
 
+#CheckUserInput Function
 def checkUserInput(userInput = "", checkInput = True):
   inputText = None
   while True:
@@ -14,6 +19,7 @@ def checkUserInput(userInput = "", checkInput = True):
     break
   return inputText
 
+#DictionaryListFile Function
 def dictionaryListFile():
   try:
     file = open(checkUserInput("Enter dictionary file: ", checkInput = False))
@@ -36,32 +42,36 @@ def same(item, target):
   return len([itemLetter for (itemLetter, targetLetter) in zip(item, target) if itemLetter == targetLetter])
 
 #Build Function
-def build(pattern, words, seen, potentialNextWords):
-  return [word for word in words if re.search(pattern, word) and word not in seen.keys() and word not in potentialNextWords]
+def build(pattern, words, seen, findingWords):
+  return [word for word in words if re.search(pattern, word) and word not in seen.keys() and word not in findingWords]
 
 #Finding word function
 def find(word, words, seen, target, path):
-  potentialNextWords = []
-  fixedIndexes=[i for i in range(len(word)) if word[i] == target[i]]
-  for i in [index for index in range(len(word)) if index not in fixedIndexes]:
-    potentialNextWords += build(word[:i] + "." + word[i + 1:], words, seen, potentialNextWords)
-  if len(potentialNextWords) == 0:
+
+  # Declaring findingWords as a list
+  findingWords = list()
+  fixedIndexes = [x for x in range(len(word)) if word[x] == target[x]]
+  for x in [index for index in range(len(word)) if index not in fixedIndexes]:
+    findingWords += build(word[:x] + "." + word[x + 1:], words, seen, findingWords)
+  if len(findingWords) == 0:
     return False
-  potentialNextWords = sorted([(same(word, target), word) for word in potentialNextWords], reverse=True)
-  for (match, item) in potentialNextWords:
+  findingWords = sorted([(same(word, target), word) for word in findingWords], reverse=True)
+  for (match, item) in findingWords:
     if match >= len(target) - 1:
       if match == len(target) - 1:
         path.append(item)
       return True
     seen[item] = True
-  for (match, item) in potentialNextWords:
+  for (match, item) in findingWords:
     path.append(item)
     if find(item, words, seen, target, path):
       return True
     path.pop()
 
 dicionaryList = dictionaryListFile()
-startWord = {}
+
+# Declaring startword as a dictionary
+startWord = dict()
 
 # Excluding words
 while True:
@@ -113,7 +123,7 @@ while True:
 
   if pathfound and not shortestPath:
     path.append(target)
-    print(len(path) -1, " >> ".join(path))
+    print(len(path) -1, "->".join(path))
   elif shortestPath and pathfound:
     path.append(target)
     if pathfound and (minPath == None or len(path) -1 < len(minPath)):
@@ -121,11 +131,11 @@ while True:
   elif not pathfound:
     if shortestPath:
       if minPath == None:
-        print("No path 1 found")
+        print("No path found")
         break
-      print(len(minPath) - 1, " >> ".join(minPath))
+      print(len(minPath) - 1, "->".join(minPath))
     else:
-      print("No path 2 found")
+      print("No path found")
     break
   for word in path:
     startWord[word] = True
