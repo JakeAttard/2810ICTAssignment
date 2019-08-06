@@ -75,7 +75,7 @@ startWord = dict()
 
 # Excluding words
 while True:
-  excludeWords = input("Do you want to exclude any words? Please type Y to continue and N to skip. ").lower()
+  excludeWords = input("Do you want to exclude any words? (y / n) ").lower()
   if excludeWords != "y" and excludeWords != "n":
     print("Please type 'y' or 'n' ")
     continue
@@ -108,32 +108,30 @@ while True:
     continue
   break
 
-# Check if this works
 words = [word for word in dicionaryList if len(word) == len(start)]
 
-shortestPath = True
+wordPath = True
 
-if shortestPath:
-  minPath = None
+shortestWordPath = None
 
 while True:
   path = [start]
   seen = startWord.copy()
-  pathfound = find(start, words, seen, target, path)
+  wordPathFound = find(start, words, seen, target, path)
 
-  if pathfound and not shortestPath:
+  if wordPathFound and not wordPath:
     path.append(target)
     print(len(path) -1, "->".join(path))
-  elif shortestPath and pathfound:
+  elif wordPath and wordPathFound:
     path.append(target)
-    if pathfound and (minPath == None or len(path) -1 < len(minPath)):
-      minPath = path
-  elif not pathfound:
-    if shortestPath:
-      if minPath == None:
+    if wordPathFound and (shortestWordPath == None or len(path) -1 < len(shortestWordPath)):
+      shortestWordPath = path
+  elif not wordPathFound:
+    if wordPath:
+      if shortestWordPath == None:
         print("No path found")
         break
-      print(len(minPath) - 1, "->".join(minPath))
+      print(len(shortestWordPath) - 1, "->".join(shortestWordPath))
     else:
       print("No path found")
     break
