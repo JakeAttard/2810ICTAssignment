@@ -6,7 +6,7 @@
 import re
 
 #CheckUserInput Function
-def checkUserInput(userInput = "", checkInput = True):
+def checkUserInput(userInput = str(), checkInput =  bool(True)):
   inputText = None
   while True:
     inputText = input(userInput)
