@@ -22,7 +22,7 @@ def checkUserInput(userInput = str(), checkInput =  bool(True)):
 #DictionaryListFile Function
 def dictionaryListFile():
   try:
-    file = open(checkUserInput("Enter dictionary file: ", checkInput = False))
+    file = open(checkUserInput("Enter dictionary file: ", checkInput = bool(False)))
   except:
     print("The dictionary file provided does not exist.")
     exit()
