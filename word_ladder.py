@@ -37,6 +37,24 @@ def dictionaryListFile():
     exit()
   return fileLines
 
+# ExcludedFile function
+def excludedFile():
+  try:
+    file = open(checkUserInput("Enter your excluded file: ", checkInput = bool(False)))
+  except:
+    print("The excluded file provided does not exist.")
+    exit()
+
+  excludedFileLines = file.readlines()
+  for excludedFileLine in range(len(excludedFileLines)):
+    excludedFileLines[excludedFileLine] = excludedFileLines[excludedFileLine].strip()
+    if excludedFileLines[excludedFileLine] == "":
+      excludedFileLines.pop(excludedFileLine)
+  if len(excludedFileLines) == int(0):
+    print("The file is empty.")
+    exit()
+  return excludedFileLines
+  
 # Same function
 def same(item, target):
   return len([itemLetter for (itemLetter, targetLetter) in zip(item, target) if itemLetter == targetLetter])
@@ -77,12 +95,12 @@ startWord = dict()
 while bool(True):
   excludeWords = input("Do you want to exclude any words? (y / n) ").lower()
   if excludeWords != "y" and excludeWords != "n":
-    print("Please type 'y' or 'n' ")
+    print("Please type either 'y' or 'n' ")
     continue
   if excludeWords == "y":
-    excludeWords = dictionaryListFile()
-    for word in excludeWords:
-      startWord[word] = bool(True)
+    excludedWords = excludedFile()
+    for word in excludedWords:
+      startWord[word] = True
   break
 
 #Start word
