@@ -68,7 +68,7 @@ def find(word, words, seen, target, path):
       return True
     path.pop()
 
-dicionaryList = dictionaryListFile()
+dictionaryList = dictionaryListFile()
 
 # Declaring startword as a dictionary
 startWord = dict()
@@ -88,7 +88,7 @@ while True:
 #Start word
 while True:
   start = checkUserInput("Enter start word: ").lower()
-  if start not in dicionaryList:
+  if start not in dictionaryList:
     print("The dictionary word inputed can't be found")
     continue
   break
@@ -103,12 +103,12 @@ while True:
   elif len(target) != len(start):
     print("The target and start word must be the same length")
     continue
-  elif target not in dicionaryList:
+  elif target not in dictionaryList:
     print("The dictionary word inputed can't be found")
     continue
   break
 
-words = [word for word in dicionaryList if len(word) == len(start)]
+words = [word for word in dictionaryList if len(word) == len(start)]
 
 wordPath = True
 
