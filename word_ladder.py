@@ -13,9 +13,6 @@ def checkUserInput(userInput = str(), checkInput =  bool(True)):
     if len(inputText) == int(0):
       print("The input cannot be empty.")
       continue
-    elif not inputText.isalpha() and checkInput:
-      print("Error")
-      continue
     break
   return inputText
 
@@ -25,7 +22,7 @@ def dictionaryListFile():
     file = open(checkUserInput("Enter dictionary file: ", checkInput = bool(False)))
   except:
     print("The dictionary file provided does not exist.")
-    exit()
+    exit("Please re-run the program and try again!")
   
   fileLines = file.readlines()
   for fileLine in range(len(fileLines)):
@@ -33,8 +30,8 @@ def dictionaryListFile():
     if fileLines[fileLine] == "":
       fileLines.pop(fileLine)
   if len(fileLines) == int(0):
-    print("The file is empty.")
-    exit()
+    print("The file you entered is empty.")
+    exit("Please re-run the program and try again!")
   return fileLines
 
 # ExcludedFile function
@@ -43,7 +40,7 @@ def excludedFile():
     file = open(checkUserInput("Enter your excluded file: ", checkInput = bool(False)))
   except:
     print("The excluded file provided does not exist.")
-    exit()
+    exit("Please re-run the program and try again!")
 
   excludedFileLines = file.readlines()
   for excludedFileLine in range(len(excludedFileLines)):
@@ -52,7 +49,7 @@ def excludedFile():
       excludedFileLines.pop(excludedFileLine)
   if len(excludedFileLines) == int(0):
     print("The file is empty.")
-    exit()
+    exit("Please re-run the program and try again!")
   return excludedFileLines
   
 # Same function
@@ -73,7 +70,7 @@ def find(word, words, seen, target, path):
     findingWords += build(word[:x] + "." + word[x + 1:], words, seen, findingWords)
   if len(findingWords) == int(0):
     return bool(False)
-  findingWords = sorted([(same(word, target), word) for word in findingWords], reverse=True)
+  findingWords = sorted([(same(word, target), word) for word in findingWords], reverse = bool(True))
   for (match, item) in findingWords:
     if match >= len(target) - int(1):
       if match == len(target) - int(1):
@@ -91,7 +88,7 @@ dictionaryList = dictionaryListFile()
 # Declaring startword as a dictionary
 startWord = dict()
 
-# Excluding words
+# Excluding words input
 while bool(True):
   excludeWords = input("Do you want to exclude any words? (y / n) ").lower()
   if excludeWords != "y" and excludeWords != "n":
@@ -100,7 +97,7 @@ while bool(True):
   if excludeWords == "y":
     excludedWords = excludedFile()
     for word in excludedWords:
-      startWord[word] = True
+      startWord[word] = bool(True)
   break
 
 #Start word
@@ -147,11 +144,12 @@ while bool(True):
   elif not wordPathFound:
     if wordPath:
       if shortestWordPath == None:
-        print("No path found")
+        print("No path found, please try again")
         break
       print(len(shortestWordPath) - 1, "->".join(shortestWordPath))
-    else:
-      print("No path found")
+    # else:
+    #   print("No path found")
     break
+
   for word in path:
     startWord[word] = bool(True)
