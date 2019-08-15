@@ -4,24 +4,14 @@
 
 # Importing Regular Expressions
 import re
-
-#CheckUserInput Function
-def checkUserInput(userInput = str(), checkInput =  bool(True)):
-  inputText = None
-  while bool(True):
-    inputText = input(userInput)
-    if len(inputText) == int(0):
-      print("The input cannot be empty.")
-      continue
-    break
-  return inputText
+print("Welcome to the ladder-gram program")
 
 #DictionaryListFile Function
 def dictionaryListFile():
   try:
-    file = open(checkUserInput("Enter dictionary file: ", checkInput = bool(False)))
+    file = open('dictionary.txt', 'r')
   except:
-    print("The dictionary file provided does not exist.")
+    print("The dictionary file can't be found. Please check if you have the correct .txt file.")
     exit("Please re-run the program and try again!")
   
   fileLines = file.readlines()
@@ -37,7 +27,8 @@ def dictionaryListFile():
 # ExcludedFile function for the additional functionality
 def excludedFile():
   try:
-    file = open(checkUserInput("Enter your excluded file: ", checkInput = bool(False)))
+    excludedFileInputted = input("Enter your excluded file name: ")
+    file = open(excludedFileInputted)
   except:
     print("The excluded file provided does not exist.")
     exit("Please re-run the program and try again!")
@@ -108,7 +99,7 @@ while bool(True):
 #Start word
 # While statement lets the user input their start word
 while bool(True):
-  start = checkUserInput("Enter start word: ").lower()
+  start = input("Enter start word: ").lower()
   if start not in dictionaryList:
     print("The dictionary word inputed can't be found")
     continue
@@ -119,7 +110,7 @@ startWord[start] = bool(True)
 #Target Word
 # While statement lets the user input their target word
 while bool(True):
-  target = checkUserInput("Enter target word: ").lower()
+  target = input("Enter target word: ").lower()
   if start == target:
     print("The target word can not be the same as the start word!")
     continue
