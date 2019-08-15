@@ -34,7 +34,7 @@ def dictionaryListFile():
     exit("Please re-run the program and try again!")
   return fileLines
 
-# ExcludedFile function
+# ExcludedFile function for the additional functionality
 def excludedFile():
   try:
     file = open(checkUserInput("Enter your excluded file: ", checkInput = bool(False)))
@@ -53,14 +53,17 @@ def excludedFile():
   return excludedFileLines
   
 # Same function
+# Original code from the word_ladder given just renamed variables from c and t to better naming conventions
 def same(item, target):
   return len([itemLetter for (itemLetter, targetLetter) in zip(item, target) if itemLetter == targetLetter])
 
-#Build Function
+# Build Function
+# Original code from the word_ladder just renamed variables to have cleaer easier naming conventions
 def build(pattern, words, seen, findingWords):
   return [word for word in words if re.search(pattern, word) and word not in seen.keys() and word not in findingWords]
 
 #Finding word function
+# Has some original code from the word_ladder, some changes have been made to make the program more efficient and working as expected
 def find(word, words, seen, target, path):
 
   # Declaring findingWords as a list
@@ -147,8 +150,6 @@ while bool(True):
         print("No path found, please try again")
         break
       print(len(shortestWordPath) - 1, "->".join(shortestWordPath))
-    # else:
-    #   print("No path found")
     break
 
   for word in path:
