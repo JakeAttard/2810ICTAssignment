@@ -68,6 +68,7 @@ def find(word, words, seen, target, path):
 
   # Declaring findingWords as a list
   findingWords = list()
+
   fixedIndexes = [x for x in range(len(word)) if word[x] == target[x]]
   for x in [index for index in range(len(word)) if index not in fixedIndexes]:
     findingWords += build(word[:x] + "." + word[x + 1:], words, seen, findingWords)
@@ -86,6 +87,7 @@ def find(word, words, seen, target, path):
       return bool(True)
     path.pop()
 
+# DictionaryList now has access to the dictionaryListFile() function
 dictionaryList = dictionaryListFile()
 
 # Declaring startword as a dictionary
@@ -104,15 +106,18 @@ while bool(True):
   break
 
 #Start word
+# While statement lets the user input their start word
 while bool(True):
   start = checkUserInput("Enter start word: ").lower()
   if start not in dictionaryList:
     print("The dictionary word inputed can't be found")
     continue
   break
+  
 startWord[start] = bool(True)
 
 #Target Word
+# While statement lets the user input their target word
 while bool(True):
   target = checkUserInput("Enter target word: ").lower()
   if start == target:
@@ -128,8 +133,10 @@ while bool(True):
 
 words = [word for word in dictionaryList if len(word) == len(start)]
 
+# wordPath variable is equal to True
 wordPath = bool(True)
 
+# shortestWordPath is None
 shortestWordPath = None
 
 while bool(True):
