@@ -32,12 +32,26 @@ def dictionaryListFile(testingFileName):
       exit()
     return fileLines
 
-class MyTestCase(unittest.TestCase):
+class TestUserInputFileName(unittest.TestCase):
     def testFileInvalid(self):
-      self.assertRaises((SystemExit, FileNotFoundError), dictionaryListFile, 'dictionaryFileTest')
+      self.assertRaises((SystemExit, FileNotFoundError), dictionaryListFile, "dictionaryFileTest")
     
     def testEmptyFileNameInput(self):
-      self.assertRaises(SystemExit, checkUserInput, "")
+      self.assertRaises(SystemExit, dictionaryListFile, "")
+
+class TestUserWordInput(unittest.TestCase):
+    def testInputtedSpecialCharacters(self):
+        self.assertEqual(checkUserInput('@#test'), "Error no special characters such as @!#%$ can be inputted")
+
+    def testInputtedNumbers(self):
+        self.assertEqual(checkUserInput('123TEST'), "Error no numbers can be inputted.")
+
+    def testInputtedSpaces(self):
+        self.assertEqual(checkUserInput(' '), "Error no spaces can be inputted.")
+
+    def testCorrectInput(self):
+        self.assertEqual(checkUserInput('test'), 'The current input is successful.')
+
 
 
 if __name__ == '__main__':
