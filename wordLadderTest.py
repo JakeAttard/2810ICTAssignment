@@ -60,6 +60,31 @@ def same(item, target):
 def build(pattern, words, seen, findingWords):
   return [word for word in words if re.search(pattern, word) and word not in seen.keys() and word not in findingWords]
 
+#Finding word function
+# Has some original code from the word_ladder, some changes have been made to make the program more efficient and working as expected
+def find(word, words, seen, target, path):
+
+  # Declaring findingWords as a list
+  findingWords = list()
+
+  fixedIndexes = [x for x in range(len(word)) if word[x] == target[x]]
+  for x in [index for index in range(len(word)) if index not in fixedIndexes]:
+    findingWords += build(word[:x] + "." + word[x + 1:], words, seen, findingWords)
+  if len(findingWords) == int(0):
+    return bool(False)
+  findingWords = sorted([(same(word, target), word) for word in findingWords], reverse = bool(True))
+  for (match, item) in findingWords:
+    if match >= len(target) - int(1):
+      if match == len(target) - int(1):
+        path.append(item)
+      return bool(True)
+    seen[item] = bool(True)
+  for (match, item) in findingWords:
+    path.append(item)
+    if find(item, words, seen, target, path):
+      return bool(True)
+    path.pop()
+
 # TESTING INPUT FILENAME
 class TestInputtedFileName(unittest.TestCase):
     def testFileInvalid(self):
