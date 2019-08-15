@@ -4,7 +4,7 @@
 
 # Importing Regular Expressions
 import re
-print("Welcome to the ladder-gram program")
+print("Welcome to the ladder-gram program!")
 
 #DictionaryListFile Function
 def dictionaryListFile():
