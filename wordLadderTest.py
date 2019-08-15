@@ -32,14 +32,51 @@ def dictionaryListFile(testingFileName):
       exit()
     return fileLines
 
-class TestUserInputFileName(unittest.TestCase):
+# ExcludedFile function for the additional functionality
+def excludedFile(testingExcludedFileName):
+  try:
+    file = open(testingExcludedFileName)
+  except:
+    print("The excluded file provided does not exist.")
+    exit("Please re-run the program and try again!")
+
+  excludedFileLines = file.readlines()
+  for excludedFileLine in range(len(excludedFileLines)):
+    excludedFileLines[excludedFileLine] = excludedFileLines[excludedFileLine].strip()
+    if excludedFileLines[excludedFileLine] == "":
+      excludedFileLines.pop(excludedFileLine)
+  if len(excludedFileLines) == int(0):
+    print("The file is empty.")
+    exit("Please re-run the program and try again!")
+  return excludedFileLines
+  
+# Same function
+# Original code from the word_ladder given just renamed variables from c and t to better naming conventions
+def same(item, target):
+  return len([itemLetter for (itemLetter, targetLetter) in zip(item, target) if itemLetter == targetLetter])
+
+# Build Function
+# Original code from the word_ladder just renamed variables to have cleaer easier naming conventions
+def build(pattern, words, seen, findingWords):
+  return [word for word in words if re.search(pattern, word) and word not in seen.keys() and word not in findingWords]
+
+# TESTING INPUT FILENAME
+class TestInputtedFileName(unittest.TestCase):
     def testFileInvalid(self):
       self.assertRaises((SystemExit, FileNotFoundError), dictionaryListFile, "dictionaryFileTest")
     
     def testEmptyFileNameInput(self):
       self.assertRaises(SystemExit, dictionaryListFile, "")
 
-class TestUserWordInput(unittest.TestCase):
+# TESING EXCLUDED FILENAME
+class TestInputtedExcludeFileName(unittest.TestCase):
+    def testExcludeFileInvalid(self):
+      self.assertRaises((SystemExit, FileNotFoundError), excludedFile, "excludedFileTest")
+    
+    def testEmptyExcludedFileNameInput(self):
+      self.assertRaises(SystemExit, excludedFile, "")
+
+class TestInputtedWord(unittest.TestCase):
     def testInputtedSpecialCharacters(self):
         self.assertEqual(checkUserInput('@#test'), "Error no special characters such as @!#%$ can be inputted")
 
