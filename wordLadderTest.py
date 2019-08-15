@@ -89,7 +89,18 @@ class TestInputtedWord(unittest.TestCase):
     def testCorrectInput(self):
         self.assertEqual(checkUserInput('test'), 'The current input is successful.')
 
+class TestSameFunctionComparingWords(unittest.TestCase):
+    def testWordsString1(self):
+      self.assertEqual(same("lead", "gold"), 1)
 
+    def testWordsString2(self):
+      self.assertEqual(same("hide", "seek"), 0)
+
+    def testWordsString3(self):
+      self.assertEqual(same("lead", "lead"), 4)
+
+    def testWordsEmptyString(self):
+      self.assertEqual(same("", ""), 0)
 
 if __name__ == '__main__':
     unittest.main()
