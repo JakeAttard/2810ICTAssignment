@@ -46,7 +46,7 @@ def excludedFile():
 # Same function
 # Original code from the word_ladder given just renamed variables from c and t to better naming conventions
 def same(item, target):
-  return len([itemLetter for (itemLetter, targetLetter) in zip(item, target) if itemLetter == targetLetter])
+  return len([itemWord for (itemWord, targetWord) in zip(item, target) if itemWord == targetWord])
 
 # Build Function
 # Original code from the word_ladder just renamed variables to have cleaer easier naming conventions
