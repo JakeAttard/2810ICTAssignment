@@ -1,41 +1,37 @@
+#wordLadderTest created by:
+#Jake Attard s5138647
+#Steven Phan s5080436
+
 import unittest
 import re
-
-#CheckUserInput Function
-def checkUserInput(emptyString, checkInput =  bool(True)):
-    inputText = None
-    while True:
-      inputText = emptyString
-      if len(inputText) == 0:
-        print("The input cannot be empty.")
-        # Added a exit instead of the continue as the testing continued to loop over "The input cannot be empty"
-        exit()
-      elif not inputText.isalpha() and checkInput:
-        print("Error")
-      break
-    return inputText
+# import word_ladderOriginal
 
 #DictionaryListFile Function
-def dictionaryListFile(testingFileName):
-    try:
-      file = open(testingFileName)
-    except:
-      print("The dictionary file provided does not exist.")
-      exit()
-    fileLines = file.readlines()
-    for fileLine in range(len(fileLines)):
-      fileLines[fileLine] = fileLines[fileLine].strip()
-      if fileLines[fileLine] == "":
-        fileLines.pop(fileLine)
-    if len(fileLines) == 0:
-      print("The file is empty.")
-      exit()
-    return fileLines
-
-# ExcludedFile function for the additional functionality
-def excludedFile(testingExcludedFileName):
+#Removed the fileName import so testing can be conducted.
+def dictionaryListFile(fileName):
   try:
-    file = open(testingExcludedFileName)
+    # fileName = input("Enter dictionary file name: ")
+    file = open(fileName)
+  except:
+    print("The dictionary file can't be found. Please check if you have the correct .txt file.")
+    exit("Please re-run the program and try again!")
+  
+  fileLines = file.readlines()
+  for fileLine in range(len(fileLines)):
+    fileLines[fileLine] = fileLines[fileLine].strip()
+    if fileLines[fileLine] == "":
+      fileLines.pop(fileLine)
+  if len(fileLines) == int(0):
+    print("The file you entered is empty.")
+    exit("Please re-run the program and try again!")
+  return fileLines
+
+#ExcludedFile Function
+#Removed the fileName import so testing can be conducted on the excluded file
+def excludedFile(fileName):
+  try:
+    # excludedFileInputted = input("Enter your excluded file name: ")
+    file = open(fileName)
   except:
     print("The excluded file provided does not exist.")
     exit("Please re-run the program and try again!")
@@ -49,43 +45,8 @@ def excludedFile(testingExcludedFileName):
     print("The file is empty.")
     exit("Please re-run the program and try again!")
   return excludedFileLines
-  
-# Same function
-# Original code from the word_ladder given just renamed variables from c and t to better naming conventions
-def same(item, target):
-  return len([itemLetter for (itemLetter, targetLetter) in zip(item, target) if itemLetter == targetLetter])
 
-# Build Function
-# Original code from the word_ladder just renamed variables to have cleaer easier naming conventions
-def build(pattern, words, seen, findingWords):
-  return [word for word in words if re.search(pattern, word) and word not in seen.keys() and word not in findingWords]
-
-#Finding word function
-# Has some original code from the word_ladder, some changes have been made to make the program more efficient and working as expected
-def find(word, words, seen, target, path):
-
-  # Declaring findingWords as a list
-  findingWords = list()
-
-  fixedIndexes = [x for x in range(len(word)) if word[x] == target[x]]
-  for x in [index for index in range(len(word)) if index not in fixedIndexes]:
-    findingWords += build(word[:x] + "." + word[x + 1:], words, seen, findingWords)
-  if len(findingWords) == int(0):
-    return bool(False)
-  findingWords = sorted([(same(word, target), word) for word in findingWords], reverse = bool(True))
-  for (match, item) in findingWords:
-    if match >= len(target) - int(1):
-      if match == len(target) - int(1):
-        path.append(item)
-      return bool(True)
-    seen[item] = bool(True)
-  for (match, item) in findingWords:
-    path.append(item)
-    if find(item, words, seen, target, path):
-      return bool(True)
-    path.pop()
-
-# TESTING INPUT FILENAME
+# TESTING DICTIONARY INPUT FILENAME
 class TestInputtedFileName(unittest.TestCase):
     def testFileInvalid(self):
       self.assertRaises((SystemExit, FileNotFoundError), dictionaryListFile, "dictionaryFileTest")
@@ -93,39 +54,13 @@ class TestInputtedFileName(unittest.TestCase):
     def testEmptyFileNameInput(self):
       self.assertRaises(SystemExit, dictionaryListFile, "")
 
-# TESING EXCLUDED FILENAME
+# TESING EXCLUDED INPUT FILENAME
 class TestInputtedExcludeFileName(unittest.TestCase):
     def testExcludeFileInvalid(self):
       self.assertRaises((SystemExit, FileNotFoundError), excludedFile, "excludedFileTest")
     
     def testEmptyExcludedFileNameInput(self):
       self.assertRaises(SystemExit, excludedFile, "")
-
-class TestInputtedWord(unittest.TestCase):
-    def testInputtedSpecialCharacters(self):
-        self.assertEqual(checkUserInput('@#test'), "Error no special characters such as @!#%$ can be inputted")
-
-    def testInputtedNumbers(self):
-        self.assertEqual(checkUserInput('123TEST'), "Error no numbers can be inputted.")
-
-    def testInputtedSpaces(self):
-        self.assertEqual(checkUserInput(' '), "Error no spaces can be inputted.")
-
-    def testCorrectInput(self):
-        self.assertEqual(checkUserInput('test'), 'The current input is successful.')
-
-class TestSameFunctionComparingWords(unittest.TestCase):
-    def testWordsString1(self):
-      self.assertEqual(same("lead", "gold"), 1)
-
-    def testWordsString2(self):
-      self.assertEqual(same("hide", "seek"), 0)
-
-    def testWordsString3(self):
-      self.assertEqual(same("lead", "lead"), 4)
-
-    def testWordsEmptyString(self):
-      self.assertEqual(same("", ""), 0)
 
 if __name__ == '__main__':
     unittest.main()
