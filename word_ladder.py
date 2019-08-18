@@ -49,7 +49,7 @@ def same(item, target):
   return len([itemWord for (itemWord, targetWord) in zip(item, target) if itemWord == targetWord])
 
 # Build Function
-# Original code from the word_ladder just renamed variables to have cleaer easier naming conventions
+# Original code from the word_ladder
 def build(pattern, words, seen, findingWords):
   return [word for word in words if re.search(pattern, word) and word not in seen.keys() and word not in findingWords]
 
@@ -91,9 +91,16 @@ while bool(True):
     print("Please type either 'y' or 'n' ")
     continue
   if excludeWords == "y":
-    excludedWords = excludedFile()
-    for word in excludedWords:
-      startWord[word] = bool(True)
+    excludeWords = input("Do you want to enter excluded words via file? Please type 'y'. If you want to enter words without a file please type 'n'. ").lower()
+    if excludeWords == "y":
+      excludedWords = excludedFile()
+      for word in excludedWords:
+        startWord[word] = bool(True)
+    elif excludeWords == "n":
+      excludedWords = input("Please enter the words you would like to exclude in the same line with a space between each word: ")
+      excludedWords = excludedWords.split()
+      for word in excludedWords:
+        startWord[word] = bool(True)
   break
 
 #Start word
