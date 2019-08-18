@@ -9,7 +9,8 @@ print("Welcome to the ladder-gram program!")
 #DictionaryListFile Function
 def dictionaryListFile():
   try:
-    file = open('dictionary.txt', 'r')
+    fileName = input("Enter dictionary file name: ")
+    file = open(fileName)
   except:
     print("The dictionary file can't be found. Please check if you have the correct .txt file.")
     exit("Please re-run the program and try again!")
@@ -159,3 +160,5 @@ while bool(True):
 
   for word in path:
     startWord[word] = bool(True)
+
+print("Thankyou for using ladder-gram. Please re-run the program to start again!")
