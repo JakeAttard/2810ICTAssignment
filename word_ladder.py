@@ -21,17 +21,17 @@ def dictionaryListFile():
     if dictionaryFileLines[dictionaryFileLine] == "":
       dictionaryFileLines.pop(dictionaryFileLine)
   if len(dictionaryFileLines) == int(0):
-    print("The file you entered is empty.")
+    print("The dictionary file you entered is empty.")
     exit("Please re-run the program and try again!")
   return dictionaryFileLines
 
 # ExcludedFile function for the additional functionality
-def excludedFile():
+def excludedListFile():
   try:
-    excludedFileInputted = input("Enter your excluded file name: ")
-    file = open(excludedFileInputted)
+    excludedFileName = input("Enter your excluded file name: ")
+    file = open(excludedFileName)
   except:
-    print("The excluded file provided does not exist.")
+    print("The excluded file can't be found. Please check if you have the correct .txt file.")
     exit("Please re-run the program and try again!")
 
   excludedFileLines = file.readlines()
@@ -40,7 +40,7 @@ def excludedFile():
     if excludedFileLines[excludedFileLine] == "":
       excludedFileLines.pop(excludedFileLine)
   if len(excludedFileLines) == int(0):
-    print("The file is empty.")
+    print("The excluded file you entered is empty.")
     exit("Please re-run the program and try again!")
   return excludedFileLines
   
@@ -85,80 +85,87 @@ dictionaryList = dictionaryListFile()
 # Declaring startword as a dictionary
 startWord = dict()
 
+while bool(True):
 # Excluding words input
-while bool(True):
-  excludeWords = input("Do you want to exclude any words? (y / n) ").lower()
-  if excludeWords != "y" and excludeWords != "n":
-    print("Please type either 'y' or 'n' ")
-    continue
-  if excludeWords == "y":
-    excludeWords = input("Do you want to enter excluded words via file? Please type 'y'. If you want to enter words without a file please type 'n'. ").lower()
+  while bool(True):
+    excludeWords = input("Do you want to exclude any words? (y / n) ").lower()
+    if excludeWords != "y" and excludeWords != "n":
+      print("Please type either 'y' or 'n' ")
+      continue
     if excludeWords == "y":
-      excludedWords = excludedFile()
-      for word in excludedWords:
-        startWord[word] = bool(True)
-    elif excludeWords == "n":
-      excludedWords = input("Please enter the words you would like to exclude in the same line with a space between each word: ")
-      excludedWords = excludedWords.split()
-      for word in excludedWords:
-        startWord[word] = bool(True)
-  break
-
-#Start word
-# While statement lets the user input their start word
-while bool(True):
-  start = input("Enter start word: ").lower()
-  if start not in dictionaryList:
-    print("The dictionary word inputed can't be found")
-    continue
-  break
-  
-startWord[start] = bool(True)
-
-#Target Word
-# While statement lets the user input their target word
-while bool(True):
-  target = input("Enter target word: ").lower()
-  if start == target:
-    print("The target word can not be the same as the start word!")
-    continue
-  elif len(target) != len(start):
-    print("The target and start word must be the same length")
-    continue
-  elif target not in dictionaryList:
-    print("The dictionary word inputed can't be found")
-    continue
-  break
-
-words = [word for word in dictionaryList if len(word) == len(start)]
-
-# wordPath variable is equal to True
-wordPath = bool(True)
-
-# shortestWordPath is None
-shortestWordPath = None
-
-while bool(True):
-  path = [start]
-  seen = startWord.copy()
-  wordPathFound = find(start, words, seen, target, path)
-
-  if wordPathFound and not wordPath:
-    path.append(target)
-    print(len(path) -1, "->".join(path))
-  elif wordPath and wordPathFound:
-    path.append(target)
-    if wordPathFound and (shortestWordPath == None or len(path) -1 < len(shortestWordPath)):
-      shortestWordPath = path
-  elif not wordPathFound:
-    if wordPath:
-      if shortestWordPath == None:
-        print("No path found, please try again")
-        break
-      print(len(shortestWordPath) - 1, "->".join(shortestWordPath))
+      excludeWords = input("Do you want to enter excluded words via file? Please type 'y'. If you want to enter words without a file please type 'n'. ").lower()
+      if excludeWords == "y":
+        excludedWords = excludedListFile()
+        for word in excludedWords:
+          startWord[word] = bool(True)
+      elif excludeWords == "n":
+        excludedWords = input("Please enter the words you would like to exclude in the same line with a space between each word: ")
+        excludedWords = excludedWords.split()
+        for word in excludedWords:
+          startWord[word] = bool(True)
     break
 
-  for word in path:
-    startWord[word] = bool(True)
+  #Start word
+  # While statement lets the user input their start word
+  while bool(True):
+    start = input("Enter start word: ").lower()
+    if start not in dictionaryList:
+      print("The dictionary word inputed can't be found")
+      continue
+    break
+    
+  startWord[start] = bool(True)
 
+  #Target Word
+  # While statement lets the user input their target word
+  while bool(True):
+    target = input("Enter target word: ").lower()
+    if start == target:
+      print("The target word can not be the same as the start word!")
+      continue
+    elif len(target) != len(start):
+      print("The target and start word must be the same length")
+      continue
+    elif target not in dictionaryList:
+      print("The dictionary word inputed can't be found")
+      continue
+    break
+
+  words = [word for word in dictionaryList if len(word) == len(start)]
+
+  # wordPath variable is equal to True
+  wordPath = bool(True)
+
+  # shortestWordPath is None
+  shortestWordPath = None
+
+  while bool(True):
+    path = [start]
+    seen = startWord.copy()
+    wordPathFound = find(start, words, seen, target, path)
+
+    if wordPathFound and not wordPath:
+      path.append(target)
+      print(len(path) -1, "->".join(path))
+    elif wordPath and wordPathFound:
+      path.append(target)
+      if wordPathFound and (shortestWordPath == None or len(path) -1 < len(shortestWordPath)):
+        shortestWordPath = path
+    elif not wordPathFound:
+      if wordPath:
+        if shortestWordPath == None:
+          print("No path found, please try again")
+          break
+        print(len(shortestWordPath) - 1, "->".join(shortestWordPath))
+      break
+
+    for word in path:
+      startWord[word] = bool(True)
+
+  #User able to restart and add another set of words
+  inputAnotherWordSet = input("Would you like to input another set of words? Please type 'y' or hit any other keyboard input to exit: ")
+  if inputAnotherWordSet == "y":
+    continue
+  else:
+    break
 print("Thankyou for using ladder-gram. Please re-run the program to start again!")
