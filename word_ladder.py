@@ -9,21 +9,21 @@ print("Welcome to the ladder-gram program!")
 #DictionaryListFile Function
 def dictionaryListFile():
   try:
-    fileName = input("Enter dictionary file name: ")
-    file = open(fileName)
+    dictionaryFileName = input("Enter dictionary file name: ")
+    file = open(dictionaryFileName)
   except:
     print("The dictionary file can't be found. Please check if you have the correct .txt file.")
     exit("Please re-run the program and try again!")
   
-  fileLines = file.readlines()
-  for fileLine in range(len(fileLines)):
-    fileLines[fileLine] = fileLines[fileLine].strip()
-    if fileLines[fileLine] == "":
-      fileLines.pop(fileLine)
-  if len(fileLines) == int(0):
+  dictionaryFileLines = file.readlines()
+  for dictionaryFileLine in range(len(dictionaryFileLines)):
+    dictionaryFileLines[dictionaryFileLine] = dictionaryFileLines[dictionaryFileLine].strip()
+    if dictionaryFileLines[dictionaryFileLine] == "":
+      dictionaryFileLines.pop(dictionaryFileLine)
+  if len(dictionaryFileLines) == int(0):
     print("The file you entered is empty.")
     exit("Please re-run the program and try again!")
-  return fileLines
+  return dictionaryFileLines
 
 # ExcludedFile function for the additional functionality
 def excludedFile():
