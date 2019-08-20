@@ -133,6 +133,20 @@ while bool(True):
 
   words = [word for word in dictionaryList if len(word) == len(start)]
 
+  while bool(True):
+    intermediateWord = input("Enter intermediate word: ")
+    if intermediateWord == "":
+      break
+    elif len(target) != len(intermediateWord):
+      print("The intermediate word needs to be the same length as the target word.")
+    else:
+      if intermediateWord.isalpha() and intermediateWord in words:
+        break
+      elif intermediateWord.isalpha() == bool(False):
+        print("The intermediate word can only be letters of the alphabet")
+      else:
+        print("Test")
+
   # wordPath variable is equal to True
   wordPath = bool(True)
 
