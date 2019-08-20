@@ -162,10 +162,12 @@ while bool(True):
     for word in path:
       startWord[word] = bool(True)
 
-  #User able to restart and add another set of words
+  #User able to restart and add another set of words without having to restart the program again!
   inputAnotherWordSet = input("Would you like to input another set of words? Please type 'y' or hit any other keyboard input to exit: ")
   if inputAnotherWordSet == "y":
     continue
   else:
     break
+
+#Goodbye message for when the user quits.
 print("Thankyou for using ladder-gram. Please re-run the program to start again!")
