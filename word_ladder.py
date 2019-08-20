@@ -133,19 +133,25 @@ while bool(True):
 
   words = [word for word in dictionaryList if len(word) == len(start)]
 
-  while bool(True):
-    intermediateWord = input("Enter intermediate word: ")
-    if intermediateWord == "":
-      break
-    elif len(target) != len(intermediateWord):
-      print("The intermediate word needs to be the same length as the target word.")
-    else:
-      if intermediateWord.isalpha() and intermediateWord in words:
-        break
-      elif intermediateWord.isalpha() == bool(False):
-        print("The intermediate word can only be letters of the alphabet")
-      else:
-        print("Test")
+  #Intermediate Word
+  # while bool(True):
+  #   enterIntermediateWord = input("Do you want to add an intermediate word? (y / n) ").lower()
+  #   if enterIntermediateWord != "y" and enterIntermediateWord != "n":
+  #     print("Please type either 'y' or 'n' ")
+  #     continue
+  #   if enterIntermediateWord == "y":
+  #     intermediateWord = input("Enter the intermediate word: ")
+  #     if intermediateWord == "":
+  #       print("The intermediate word can't be empty")
+  #       break
+  #     elif len(target) != len(intermediateWord):
+  #       print("The intermediate word has to be same length as the targetted word.")
+  #   else:
+  #     if intermediateWord.isalpha() and intermediateWord in word:
+  #       break
+  #     else:
+  #       print("The intermediate word needs to either be in the dictionary or a word you have added.")
+  #   break
 
   # wordPath variable is equal to True
   wordPath = bool(True)
