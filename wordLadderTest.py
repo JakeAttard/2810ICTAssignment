@@ -7,32 +7,32 @@ import re
 
 #DictionaryListFile Function
 #Removed the fileName import so testing can be conducted.
-def dictionaryListFile(fileName):
+def dictionaryListFile(dictFileName):
   try:
-    # fileName = input("Enter dictionary file name: ")
-    file = open(fileName)
+    # dictionaryFileName = input("Enter dictionary file name: ")
+    file = open(dictFileName)
   except:
     print("The dictionary file can't be found. Please check if you have the correct .txt file.")
     exit("Please re-run the program and try again!")
-  
-  fileLines = file.readlines()
-  for fileLine in range(len(fileLines)):
-    fileLines[fileLine] = fileLines[fileLine].strip()
-    if fileLines[fileLine] == "":
-      fileLines.pop(fileLine)
-  if len(fileLines) == int(0):
-    print("The file you entered is empty.")
+    
+  dictionaryFileLines = file.readlines()
+  for dictionaryFileLine in range(len(dictionaryFileLines)):
+    dictionaryFileLines[dictionaryFileLine] = dictionaryFileLines[dictionaryFileLine].strip()
+    if dictionaryFileLines[dictionaryFileLine] == "":
+      dictionaryFileLines.pop(dictionaryFileLine)
+  if len(dictionaryFileLines) == int(0):
+    print("The dictionary file you entered is empty.")
     exit("Please re-run the program and try again!")
-  return fileLines
+  return dictionaryFileLines
 
-#ExcludedFile Function
-#Removed the fileName import so testing can be conducted on the excluded file
-def excludedFile(fileName):
+# ExcludedFile function for the additional functionality
+#Removed the fileName import so testing can be conducted.
+def excludedListFile(excFileName):
   try:
-    # excludedFileInputted = input("Enter your excluded file name: ")
-    file = open(fileName)
+    # excludedFileName = input("Enter your excluded file name: ")
+    file = open(excFileName)
   except:
-    print("The excluded file provided does not exist.")
+    print("The excluded file can't be found. Please check if you have the correct .txt file.")
     exit("Please re-run the program and try again!")
 
   excludedFileLines = file.readlines()
@@ -41,7 +41,7 @@ def excludedFile(fileName):
     if excludedFileLines[excludedFileLine] == "":
       excludedFileLines.pop(excludedFileLine)
   if len(excludedFileLines) == int(0):
-    print("The file is empty.")
+    print("The excluded file you entered is empty.")
     exit("Please re-run the program and try again!")
   return excludedFileLines
 
@@ -56,10 +56,10 @@ class TestInputtedFileName(unittest.TestCase):
 # TESING EXCLUDED INPUT FILENAME
 class TestInputtedExcludeFileName(unittest.TestCase):
     def testExcludeFileInvalid(self):
-      self.assertRaises((SystemExit, FileNotFoundError), excludedFile, "excludedFileTest")
+      self.assertRaises((SystemExit, FileNotFoundError), excludedListFile, "excludedFileTest")
     
     def testEmptyExcludedFileNameInput(self):
-      self.assertRaises(SystemExit, excludedFile, "")
+      self.assertRaises(SystemExit, excludedListFile, "")
 
 if __name__ == '__main__':
     unittest.main()
