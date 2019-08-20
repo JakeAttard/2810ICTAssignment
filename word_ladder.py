@@ -144,7 +144,7 @@ while bool(True):
         path.append(intermediateWord)
         if find(intermediateWord, words, seen, target, path):
           path.append(target)
-        print(len(path) - 1, path)
+        print(len(path) - 1, "->".join(path))
         exit() 
       else:
         print("No path found")
