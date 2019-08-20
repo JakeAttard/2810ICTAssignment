@@ -4,6 +4,7 @@
 
 # Importing Regular Expressions
 import re
+import sys
 print("Welcome to the ladder-gram program!")
 
 # Same function
@@ -133,25 +134,23 @@ while bool(True):
 
   words = [word for word in dictionaryList if len(word) == len(start)]
 
-  #Intermediate Word
-  # while bool(True):
-  #   enterIntermediateWord = input("Do you want to add an intermediate word? (y / n) ").lower()
-  #   if enterIntermediateWord != "y" and enterIntermediateWord != "n":
-  #     print("Please type either 'y' or 'n' ")
-  #     continue
-  #   if enterIntermediateWord == "y":
-  #     intermediateWord = input("Enter the intermediate word: ")
-  #     if intermediateWord == "":
-  #       print("The intermediate word can't be empty")
-  #       break
-  #     elif len(target) != len(intermediateWord):
-  #       print("The intermediate word has to be same length as the targetted word.")
-  #   else:
-  #     if intermediateWord.isalpha() and intermediateWord in word:
-  #       break
-  #     else:
-  #       print("The intermediate word needs to either be in the dictionary or a word you have added.")
-  #   break
+  while bool(True):
+    intermediateWord = input("Please enter intermediate word, or hit enter to skip: ")
+    if intermediateWord != "":
+      path = [start]
+      seen = startWord.copy()
+
+      if find(start, words, seen, intermediateWord, path):
+        path.append(intermediateWord)
+        if find(intermediateWord, words, seen, target, path):
+          path.append(target)
+        print(len(path) - 1, path)
+        exit() 
+      else:
+        print("No path found")
+        exit()
+    else:
+      break   
 
   # wordPath variable is equal to True
   wordPath = bool(True)
