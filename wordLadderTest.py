@@ -104,5 +104,18 @@ class TestSameFunction(unittest.TestCase):
   def testSameFunUnsuccessful2(self):
     self.assertFalse(same('truck', 'run'))
 
+class TestBuildFunction(unittest.TestCase):
+  def testBuildFuncSuccess1(self):
+    words = ['hide', 'side', 'site', 'sits', 'sies', 'sees', 'seek']
+    seen = {"site": True}
+    list = []
+    self.assertEqual(build(".ide", words, seen, list), ['hide','side'])
+  
+  def testBuildFuncUnSuccess1(self):
+    words = ['hide', 'side', 'site', 'sits', 'sies', 'sees', 'seek']
+    seen = {"test": True}
+    list = []
+    self.assertFalse(build(".est", words, seen, list))
+
 if __name__ == '__main__':
     unittest.main()
