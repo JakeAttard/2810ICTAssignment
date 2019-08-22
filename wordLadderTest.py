@@ -5,6 +5,35 @@
 import unittest
 import re
 
+def same(item, target):
+  return len([itemWord for (itemWord, targetWord) in zip(item, target) if itemWord == targetWord])
+
+def build(pattern, words, seen, findingWords):
+  return [word for word in words if re.search(pattern, word) and word not in seen.keys() and word not in findingWords]
+
+def find(word, words, seen, target, path):
+
+  # Declaring findingWords as a list
+  findingWords = list()
+
+  fixedIndexes = [x for x in range(len(word)) if word[x] == target[x]]
+  for x in [index for index in range(len(word)) if index not in fixedIndexes]:
+    findingWords += build(word[:x] + "." + word[x + 1:], words, seen, findingWords)
+  if len(findingWords) == int(0):
+    return bool(False)
+  findingWords = sorted([(same(word, target), word) for word in findingWords], reverse = bool(True))
+  for (match, item) in findingWords:
+    if match >= len(target) - int(1):
+      if match == len(target) - int(1):
+        path.append(item)
+      return bool(True)
+    seen[item] = bool(True)
+  for (match, item) in findingWords:
+    path.append(item)
+    if find(item, words, seen, target, path):
+      return bool(True)
+    path.pop()
+
 #DictionaryListFile Function
 #Removed the fileName import so testing can be conducted.
 def dictionaryListFile(dictFileName):
@@ -60,6 +89,20 @@ class TestInputtedExcludeFileName(unittest.TestCase):
     
     def testEmptyExcludedFileNameInput(self):
       self.assertRaises(SystemExit, excludedListFile, "")
+
+class TestSameFunction(unittest.TestCase):
+  def testSameFuncSuccess1(self):
+    self.assertEqual(same('lead', 'gold'), 1)
+  
+  def testSameFuncSuccess2(self):
+    self.assertEqual(same('hide', 'seek'), 0)
+    self.assertEqual(same('goal', 'load'), 2)
+    
+  def testSameFunUnsuccessful1(self):
+    self.assertFalse(same('bike', 'car'))
+  
+  def testSameFunUnsuccessful2(self):
+    self.assertFalse(same('truck', 'run'))
 
 if __name__ == '__main__':
     unittest.main()
