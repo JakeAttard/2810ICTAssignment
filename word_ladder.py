@@ -134,7 +134,6 @@ while bool(True):
 
   words = [word for word in dictionaryList if len(word) == len(start)]
 
-  #Enter the intermediate word
   while bool(True):
     intermediateWord = input("Please enter intermediate word, or hit enter to skip: ")
     if intermediateWord != "":
@@ -146,12 +145,12 @@ while bool(True):
         if find(intermediateWord, words, seen, target, path):
           path.append(target)
         print(len(path) - 1, "->".join(path))
-        exit()
+        exit() 
       else:
         print("No path found")
         exit()
     else:
-      break
+      break   
 
   # wordPath variable is equal to True
   wordPath = bool(True)
