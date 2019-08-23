@@ -123,7 +123,7 @@ class TestBuildFunction(unittest.TestCase):
 class TestFindFunction1(unittest.TestCase):
  def testFindFuncSuccess1(self):
     word = "lead"
-    words = ['coal', 'down', 'goad', 'sole', 'foal', 'load', 'loan', 'moan', 'seek']
+    words = ['bead', 'feed', 'goad', 'weed', 'seed', 'load', 'load', 'teed', 'heed']
     target = "gold"
     seen = {"lead": True}
     path = [word]
@@ -132,7 +132,7 @@ class TestFindFunction1(unittest.TestCase):
 class TestFindFunction2(unittest.TestCase):
   def testFindFuncSuccess2(self):
     word = "lead"
-    words = ['coal', 'down', 'goad', 'sole', 'foal', 'load', 'loan', 'moan', 'seek']
+    words = ['bead', 'feed', 'goad', 'weed', 'seed', 'load', 'load', 'teed', 'heed']
     target = "gold"
     seen = {"lead": True}
     path = [word]
@@ -140,10 +140,10 @@ class TestFindFunction2(unittest.TestCase):
 
 class TestFindFunction3(unittest.TestCase):
   def testFindFuncSuccess3(self):
-    word = "hell"
-    words = ['coal', 'down', 'goad', 'sole', 'foal', 'load', 'loan', 'moan', 'seek']
+    word = "hide"
+    words = ['bead', 'feed', 'goad', 'weed', 'seed', 'load', 'load', 'teed', 'heed']
     target = "gold"
-    seen = {"hell": True}
+    seen = {"hide": True}
     path = [word]
     self.assertFalse(find(word, words, seen, target, path))
 
