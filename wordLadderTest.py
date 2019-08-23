@@ -76,7 +76,7 @@ def excludedListFile(excFileName):
 
 # TESTING DICTIONARY INPUT FILENAME
 class TestInputtedFileName(unittest.TestCase):
-    def testFileInvalid(self):
+    def testFileInvalid1(self):
       self.assertRaises((SystemExit, FileNotFoundError), dictionaryListFile, "dictionaryFileTest")
     
     def testEmptyFileNameInput(self):
@@ -90,6 +90,7 @@ class TestInputtedExcludeFileName(unittest.TestCase):
     def testEmptyExcludedFileNameInput(self):
       self.assertRaises(SystemExit, excludedListFile, "")
 
+# TESTING SAME FUNCTION - Similar Words
 class TestSameFunction(unittest.TestCase):
   def testSameFuncSuccess1(self):
     self.assertEqual(same('lead', 'gold'), 1)
@@ -104,6 +105,7 @@ class TestSameFunction(unittest.TestCase):
   def testSameFunUnsuccessful2(self):
     self.assertFalse(same('truck', 'run'))
 
+# TESTING BUILD FUNCTION
 class TestBuildFunction(unittest.TestCase):
   def testBuildFuncSuccess1(self):
     words = ['hide', 'side', 'site', 'sits', 'sies', 'sees', 'seek']
@@ -116,6 +118,34 @@ class TestBuildFunction(unittest.TestCase):
     seen = {"test": True}
     list = []
     self.assertFalse(build(".est", words, seen, list))
+
+# TESTING FIND FUNCTION
+class TestFindFunction1(unittest.TestCase):
+ def testFindFuncSuccess1(self):
+    word = "lead"
+    words = ['coal', 'down', 'goad', 'sole', 'foal', 'load', 'loan', 'moan', 'seek']
+    target = "gold"
+    seen = {"lead": True}
+    path = [word]
+    self.assertTrue(find(word, words, seen, target, path))
+
+class TestFindFunction2(unittest.TestCase):
+  def testFindFuncSuccess2(self):
+    word = "lead"
+    words = ['coal', 'down', 'goad', 'sole', 'foal', 'load', 'loan', 'moan', 'seek']
+    target = "gold"
+    seen = {"lead": True}
+    path = [word]
+    self.assertTrue(find(word, words, seen, target, path))
+
+class TestFindFunction3(unittest.TestCase):
+  def testFindFuncSuccess3(self):
+    word = "hell"
+    words = ['coal', 'down', 'goad', 'sole', 'foal', 'load', 'loan', 'moan', 'seek']
+    target = "gold"
+    seen = {"hell": True}
+    path = [word]
+    self.assertFalse(find(word, words, seen, target, path))
 
 if __name__ == '__main__':
     unittest.main()
