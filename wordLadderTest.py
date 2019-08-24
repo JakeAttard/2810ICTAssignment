@@ -97,6 +97,8 @@ class TestSameFunction(unittest.TestCase):
   
   def testSameFuncSuccess2(self):
     self.assertEqual(same('hide', 'seek'), 0)
+
+  def testSameFuncSuccess3(self):
     self.assertEqual(same('goal', 'load'), 2)
     
   def testSameFunUnsuccessful1(self):
@@ -148,4 +150,4 @@ class TestFindFunction3(unittest.TestCase):
     self.assertFalse(find(word, words, seen, target, path))
 
 if __name__ == '__main__':
-    unittest.main()
+  unittest.main()
