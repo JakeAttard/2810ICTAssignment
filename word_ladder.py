@@ -30,6 +30,7 @@ def find(word, words, seen, target, path):
   if len(findingWords) == int(0):
     return bool(False)
   findingWords = sorted([(same(word, target), word) for word in findingWords], reverse = bool(True))
+  # Loop puts items in the seen findingWords
   for (match, item) in findingWords:
     if match >= len(target) - int(1):
       if match == len(target) - int(1):
@@ -50,7 +51,8 @@ def dictionaryListFile():
   except:
     print("The dictionary file can't be found. Please check if you have the correct .txt file.")
     exit("Please re-run the program and try again!")
-    
+  
+  #Reads the dictionary file inputted bythe user and generates the words in a list of lines
   dictionaryFileLines = file.readlines()
   for dictionaryFileLine in range(len(dictionaryFileLines)):
     dictionaryFileLines[dictionaryFileLine] = dictionaryFileLines[dictionaryFileLine].strip()
@@ -70,8 +72,10 @@ def excludedListFile():
     print("The excluded file can't be found. Please check if you have the correct .txt file.")
     exit("Please re-run the program and try again!")
 
+  #Reads the excluded file inputted by the user and generates the words in a list of lines
   excludedFileLines = file.readlines()
   for excludedFileLine in range(len(excludedFileLines)):
+    #strip is used to remove the character in the new line.
     excludedFileLines[excludedFileLine] = excludedFileLines[excludedFileLine].strip()
     if excludedFileLines[excludedFileLine] == "":
       excludedFileLines.pop(excludedFileLine)
@@ -86,6 +90,7 @@ dictionaryList = dictionaryListFile()
 # Declaring startword as a dictionary
 startWord = dict()
 
+#Main program while loop
 while bool(True):
 # Excluding words input
   while bool(True):
@@ -133,7 +138,7 @@ while bool(True):
     break
 
   words = [word for word in dictionaryList if len(word) == len(start)]
-
+  # User can input their intermediate word
   while bool(True):
     intermediateWord = input("Please enter intermediate word, or hit enter to skip: ")
     if intermediateWord != "":
